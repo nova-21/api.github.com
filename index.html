@@ -537,50 +537,6 @@
         }
 
         /* ── Project grid (structural) ── */
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1px;
-            background: var(--line);
-            border: 1px solid var(--line);
-            margin: 2rem 0;
-        }
-        .project-card {
-            background: var(--background);
-            padding: 1.25rem;
-            position: relative;
-        }
-        .project-card .blueprint-svg {
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.75rem;
-        }
-        .project-card .mono-code {
-            position: absolute;
-            top: 0.5rem;
-            right: 0.5rem;
-            font-family: var(--font-mono);
-            font-size: 9px;
-            letter-spacing: 0.1em;
-            color: var(--muted-foreground);
-        }
-        .project-card .type {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--ink);
-        }
-        .project-card .location {
-            font-size: 0.75rem;
-            color: var(--graphite);
-        }
-        .project-card .client {
-            font-size: 0.7rem;
-            color: var(--muted-foreground);
-            font-style: italic;
-        }
-
         /* ── Inverted manifesto ── */
         .ink-section {
             background: var(--ink);
@@ -849,7 +805,66 @@
                     <p class="lede" data-i18n="structuralDesc">Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado. Luego entregamos análisis y diseño a detalle.</p>
                 </div>
             </div>
-            <div class="project-grid" id="projectGrid"></div>
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="images/estructuras/proyecto-01.jpg" alt="Proyecto 01" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">P·01</span>
+                    <h3 data-i18n="projTitle1">Proyecto 01</h3>
+                    <p data-i18n="projDesc1">[Identificar proyecto — descripción pendiente]</p>
+                </div>
+            </div>
+            <div class="feature-row reverse">
+                <div class="feature-image">
+                    <img src="images/estructuras/proyecto-02.jpg" alt="Proyecto 02" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">P·02</span>
+                    <h3 data-i18n="projTitle2">Proyecto 02</h3>
+                    <p data-i18n="projDesc2">[Identificar proyecto — descripción pendiente]</p>
+                </div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="images/estructuras/proyecto-03.jpg" alt="Proyecto 03" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">P·03</span>
+                    <h3 data-i18n="projTitle3">Proyecto 03</h3>
+                    <p data-i18n="projDesc3">[Identificar proyecto — descripción pendiente]</p>
+                </div>
+            </div>
+            <div class="feature-row reverse">
+                <div class="feature-image">
+                    <img src="images/estructuras/proyecto-04.jpg" alt="Proyecto 04" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">P·04</span>
+                    <h3 data-i18n="projTitle4">Proyecto 04</h3>
+                    <p data-i18n="projDesc4">[Identificar proyecto — descripción pendiente]</p>
+                </div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="images/estructuras/proyecto-05.jpg" alt="Proyecto 05" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">P·05</span>
+                    <h3 data-i18n="projTitle5">Proyecto 05</h3>
+                    <p data-i18n="projDesc5">[Identificar proyecto — descripción pendiente]</p>
+                </div>
+            </div>
+            <div class="feature-row reverse">
+                <div class="feature-image">
+                    <img src="images/estructuras/proyecto-06.jpg" alt="Proyecto 06" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">P·06</span>
+                    <h3 data-i18n="projTitle6">Proyecto 06</h3>
+                    <p data-i18n="projDesc6">[Identificar proyecto — descripción pendiente]</p>
+                </div>
+            </div>
             <div class="cta-band grid-paper">
                 <div class="cta-card">
                     <span class="mono-label">— CONSULTE</span>
@@ -1050,21 +1065,18 @@
                     reminder2Desc: "Firma digital para planos A1/A0. Rápida y eficiente.",
                     reminder3Title: "Base en Cuenca",
                     reminder3Desc: "Atendemos proyectos en toda la región. Visitas a sitio incluidas.",
-                    projectTypeLabels: [
-                        "Vivienda residencial pequeña", "Vivienda residencial grande", "Edificio residencial multi-piso",
-                        "Edificio comercial", "Aulario universitario", "Bodega industrial",
-                        "Edificio con estacionamiento subterráneo", "Estructura bancaria"
-                    ],
-                    projectLocations: [
-                        "Cuenca — El Valle", "Cuenca — Challuabamba", "Cuenca — Centro Histórico",
-                        "Cuenca — Av. Solano", "Cuenca — Campus Universitario", "Cuenca — Zona Industrial",
-                        "Cuenca — Ricaurte", "Cuenca — Centro"
-                    ],
-                    projectClients: [
-                        "Cliente privado", "Constructora local", "Constructora local",
-                        "Inmobiliaria regional", "Universidad local", "Empresa industrial",
-                        "Constructora local", "Entidad bancaria"
-                    ]
+                    projTitle1: "Proyecto 01",
+                    projTitle2: "Proyecto 02",
+                    projTitle3: "Proyecto 03",
+                    projTitle4: "Proyecto 04",
+                    projTitle5: "Proyecto 05",
+                    projTitle6: "Proyecto 06",
+                    projDesc1: "[Identificar proyecto — descripción pendiente]",
+                    projDesc2: "[Identificar proyecto — descripción pendiente]",
+                    projDesc3: "[Identificar proyecto — descripción pendiente]",
+                    projDesc4: "[Identificar proyecto — descripción pendiente]",
+                    projDesc5: "[Identificar proyecto — descripción pendiente]",
+                    projDesc6: "[Identificar proyecto — descripción pendiente]"
                 },
                 en: {
                     companyName: "Estructuras Cuenca",
@@ -1118,21 +1130,18 @@
                     reminder2Desc: "Digital signature for A1/A0 blueprints. Fast and efficient.",
                     reminder3Title: "Based in Cuenca",
                     reminder3Desc: "We serve projects throughout the region. Site visits included.",
-                    projectTypeLabels: [
-                        "Small residential home", "Large residential home", "Multi-story residential building",
-                        "Commercial building", "University classroom block", "Industrial warehouse",
-                        "Building with subterranean parking", "Bank structure"
-                    ],
-                    projectLocations: [
-                        "Cuenca — El Valle", "Cuenca — Challuabamba", "Cuenca — Historic Center",
-                        "Cuenca — Solano Ave.", "Cuenca — University Campus", "Cuenca — Industrial Zone",
-                        "Cuenca — Ricaurte", "Cuenca — Downtown"
-                    ],
-                    projectClients: [
-                        "Private client", "Local construction co.", "Local construction co.",
-                        "Regional developer", "Local university", "Industrial company",
-                        "Local construction co.", "Banking institution"
-                    ]
+                    projTitle1: "Project 01",
+                    projTitle2: "Project 02",
+                    projTitle3: "Project 03",
+                    projTitle4: "Project 04",
+                    projTitle5: "Project 05",
+                    projTitle6: "Project 06",
+                    projDesc1: "[Identify project — description pending]",
+                    projDesc2: "[Identify project — description pending]",
+                    projDesc3: "[Identify project — description pending]",
+                    projDesc4: "[Identify project — description pending]",
+                    projDesc5: "[Identify project — description pending]",
+                    projDesc6: "[Identify project — description pending]"
                 },
                 zh: {
                     companyName: "Estructuras Cuenca",
@@ -1186,21 +1195,18 @@
                     reminder2Desc: "A1/A0蓝图的数字签名。快速高效。",
                     reminder3Title: "昆卡基地",
                     reminder3Desc: "服务覆盖整个地区。包含现场勘察。",
-                    projectTypeLabels: [
-                        "小型住宅", "大型住宅", "多层住宅楼",
-                        "商业建筑", "大学教学楼", "工业仓库",
-                        "带地下停车场的建筑", "银行结构"
-                    ],
-                    projectLocations: [
-                        "昆卡 — El Valle", "昆卡 — Challuabamba", "昆卡 — 历史中心",
-                        "昆卡 — Solano大道", "昆卡 — 大学校园", "昆卡 — 工业区",
-                        "昆卡 — Ricaurte", "昆卡 — 市中心"
-                    ],
-                    projectClients: [
-                        "私人客户", "当地建筑公司", "当地建筑公司",
-                        "区域开发商", "当地大学", "工业公司",
-                        "当地建筑公司", "银行机构"
-                    ]
+                    projTitle1: "项目01",
+                    projTitle2: "项目02",
+                    projTitle3: "项目03",
+                    projTitle4: "项目04",
+                    projTitle5: "项目05",
+                    projTitle6: "项目06",
+                    projDesc1: "[识别项目 — 描述待定]",
+                    projDesc2: "[识别项目 — 描述待定]",
+                    projDesc3: "[识别项目 — 描述待定]",
+                    projDesc4: "[识别项目 — 描述待定]",
+                    projDesc5: "[识别项目 — 描述待定]",
+                    projDesc6: "[识别项目 — 描述待定]"
                 }
             };
 
@@ -1210,7 +1216,6 @@
             const navLinks = document.querySelectorAll('nav a[data-nav]');
             const langButtons = document.querySelectorAll('.lang-switcher button[data-lang]');
             const contactWeChat = document.getElementById('contactWeChat');
-            const projectGrid = document.getElementById('projectGrid');
             const trialBtn = document.getElementById('trialDownloadBtn');
 
             function switchPage(pageName) {
@@ -1233,7 +1238,6 @@
                     contactWeChat.classList.toggle('wechat-hidden', lang !== 'zh');
                     contactWeChat.classList.toggle('wechat-visible', lang === 'zh');
                 }
-                buildProjectGrid(lang);
                 localStorage.setItem('ec_pref_lang', lang);
             }
 
@@ -1243,33 +1247,6 @@
                     const key = el.dataset.i18n;
                     if (t[key]) el.textContent = t[key];
                 });
-            }
-
-            function buildProjectGrid(lang) {
-                if (!projectGrid) return;
-                const t = translations[lang] || translations.es;
-                const icons = [
-                    '<svg viewBox="0 0 40 30"><rect x="2" y="10" width="36" height="18" stroke="var(--blueprint-deep)" fill="none" stroke-width="1.2"/><polygon points="20,4 34,10 6,10" stroke="var(--blueprint)" fill="none"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="4" y="8" width="32" height="20" stroke="var(--blueprint-deep)" fill="none"/><rect x="10" y="14" width="8" height="8" stroke="var(--blueprint)"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="2" y="2" width="36" height="26" stroke="var(--blueprint-deep)" fill="none"/><line x1="20" y1="2" x2="20" y2="28" stroke="var(--blueprint)"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="2" y="2" width="36" height="26" stroke="var(--blueprint-deep)" fill="none"/><rect x="10" y="8" width="8" height="6" stroke="var(--blueprint)"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="4" y="4" width="32" height="22" stroke="var(--blueprint-deep)" fill="none"/><circle cx="20" cy="15" r="6" stroke="var(--blueprint)"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="2" y="2" width="36" height="26" stroke="var(--blueprint-deep)" fill="none"/><path d="M6 14 L34 14" stroke="var(--blueprint)"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="2" y="6" width="36" height="20" stroke="var(--blueprint-deep)" fill="none"/><rect x="8" y="12" width="10" height="8" stroke="var(--blueprint)" fill="none"/></svg>',
-                    '<svg viewBox="0 0 40 30"><rect x="2" y="8" width="36" height="18" stroke="var(--blueprint-deep)" fill="none"/><circle cx="20" cy="17" r="4" fill="var(--blueprint)"/></svg>'
-                ];
-                let html = '';
-                t.projectTypeLabels.forEach((type, i) => {
-                    html += `
-                <div class="project-card">
-                  <span class="mono-code">P·${String(i+1).padStart(2,'0')}</span>
-                  <div class="blueprint-svg">${icons[i]}</div>
-                  <div class="type">${type}</div>
-                  <div class="location">${t.projectLocations[i]}</div>
-                  <div class="client">${t.projectClients[i]}</div>
-                </div>`;
-                });
-                projectGrid.innerHTML = html;
             }
 
             document.querySelectorAll('[data-nav]').forEach(el => {
@@ -1294,7 +1271,6 @@
                 }
                 switchLang(pref);
                 switchPage('home');
-                buildProjectGrid(pref);
             }
             document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
         })();
