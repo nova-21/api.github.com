@@ -256,12 +256,52 @@
             display: none;
         }
 
-        /* ── PDF page responsive containers ── */
-        .pdf-screenshots {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1px;
+        /* ── PDF page feature rows ── */
+        .feature-row {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            margin: 4rem 0;
         }
+        .feature-row.reverse {
+            flex-direction: row-reverse;
+        }
+        .feature-image {
+            flex: 1;
+            min-width: 0;
+        }
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            box-shadow: 0 8px 32px -12px rgba(0,0,0,0.12);
+        }
+        .feature-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .feature-content .mono-code {
+            position: static;
+            display: inline-block;
+            margin-bottom: 0.75rem;
+        }
+        .feature-content h3 {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 400;
+            line-height: 1.25;
+            margin: 0 0 0.75rem 0;
+            color: var(--ink);
+        }
+        .feature-content p {
+            color: var(--graphite);
+            line-height: 1.7;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
         .pdf-actions {
             display: flex;
             gap: 1px;
@@ -677,8 +717,16 @@
             .card-grid {
                 grid-template-columns: 1fr;
             }
-            .pdf-screenshots {
-                grid-template-columns: 1fr;
+            .feature-row {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin: 2.5rem 0;
+            }
+            .feature-row.reverse {
+                flex-direction: column;
+            }
+            .feature-content h3 {
+                font-size: 1.35rem;
             }
             .pdf-actions {
                 flex-direction: column;
@@ -768,7 +816,7 @@
                 <a href="#" class="card" data-nav="pdfapp">
                     <span class="mono-code">D·02</span>
                     <svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="38" rx="2" stroke="currentColor" fill="none"/><line x1="16" y1="18" x2="32" y2="18" stroke="currentColor"/><line x1="16" y1="26" x2="28" y2="26" stroke="currentColor"/><circle cx="33" cy="32" r="5" stroke="currentColor" fill="none"/><path d="M31 30 L33 32 L36 29" stroke="currentColor"/></svg>
-                    <h3 data-i18n="pathPdfTitle">App Firma PDF</h3>
+                    <h3 data-i18n="pathPdfTitle">#marka — Firma PDF</h3>
                     <p data-i18n="pathPdfDesc">Alternativa a FirmaEC. Optimizada para planos A1/A0. Firme todas las páginas a la vez.</p>
                     <span class="arrow">Entrar →</span>
                 </a>
@@ -816,25 +864,59 @@
             <div class="hero">
                 <div class="grid-bg grid-paper-fine-dark"></div>
                 <div class="hero-content">
-                    <div class="mono-label">03 / FIRMA PDF</div>
-                    <h1><span data-i18n="pdfTitlePart1">Firma</span> <i data-i18n="pdfTitleItalic">digital</i> <span data-i18n="pdfTitlePart2">para planos</span></h1>
+                    <div class="mono-label">03 / #marka</div>
+                    <h1><span data-i18n="pdfTitlePart1">#marka</span> <i data-i18n="pdfTitleItalic">Firma digital</i> <span data-i18n="pdfTitlePart2">para planos</span></h1>
                     <p class="lede" data-i18n="pdfDesc">Alternativa a FirmaEC, optimizada para A1/A0. Firme todas las páginas a la vez, sin procesos complicados.</p>
                 </div>
             </div>
-            <div class="pdf-screenshots" style="background:var(--line); border:1px solid var(--line); margin:2rem 0;">
-                <div class="card" style="padding:2rem;">
-                    <span class="mono-code">V·01</span>
-                    <div style="height:120px; display:flex; align-items:center; justify-content:center;">
-                        <svg viewBox="0 0 80 80" width="80"><rect x="10" y="5" width="60" height="70" rx="2" stroke="var(--blueprint-deep)" fill="none" stroke-width="1.2"/><line x1="20" y1="15" x2="60" y2="15" stroke="var(--blueprint)" stroke-width="0.8"/><line x1="20" y1="25" x2="50" y2="25" stroke="var(--blueprint)" stroke-width="0.8"/><circle cx="32" cy="45" r="12" stroke="var(--blueprint-deep)" fill="none"/><path d="M26 45 L32 51 L38 45" stroke="var(--blueprint)" stroke-width="1.2"/></svg>
-                    </div>
-                    <p data-i18n="pdfScreenshot1">Carga de plano A0</p>
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="images/firma/Vista inicial simple de usar.png" alt="Vista inicial simple de usar" loading="lazy" />
                 </div>
-                <div class="card" style="padding:2rem;">
+                <div class="feature-content">
+                    <span class="mono-code">V·01</span>
+                    <h3 data-i18n="pdfScreenshot1">Interfaz inicial simple</h3>
+                    <p data-i18n="pdfDesc1">Cargue sus planos A1/A0 al instante. Interfaz limpia y sin distracciones para comenzar a firmar de inmediato.</p>
+                </div>
+            </div>
+            <div class="feature-row reverse">
+                <div class="feature-image">
+                    <img src="images/firma/Vista amplia para planos.png" alt="Vista amplia para planos" loading="lazy" />
+                </div>
+                <div class="feature-content">
                     <span class="mono-code">V·02</span>
-                    <div style="height:120px; display:flex; align-items:center; justify-content:center;">
-                        <svg viewBox="0 0 80 80" width="80"><rect x="5" y="5" width="70" height="70" rx="2" stroke="var(--blueprint-deep)" fill="none" stroke-width="1.2"/><path d="M25 20 L40 35 L55 20" stroke="var(--blueprint)" fill="none"/><line x1="40" y1="35" x2="40" y2="65" stroke="var(--blueprint)"/><circle cx="55" cy="55" r="12" stroke="var(--blueprint-deep)" fill="none"/></svg>
-                    </div>
-                    <p data-i18n="pdfScreenshot2">Firma múltiple</p>
+                    <h3 data-i18n="pdfScreenshot2">Vista amplia para planos</h3>
+                    <p data-i18n="pdfDesc2">Visualice planos de gran formato completos. Navegación fluida en documentos de hasta A0 sin perder detalle.</p>
+                </div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="images/firma/Zoom comodo para posicionar firma.png" alt="Zoom cómodo para posicionar firma" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">V·03</span>
+                    <h3 data-i18n="pdfScreenshot3">Zoom para posicionar firma</h3>
+                    <p data-i18n="pdfDesc3">Acercamiento preciso para colocar su firma exactamente donde corresponde. Compatible con lápiz táctil y mouse.</p>
+                </div>
+            </div>
+            <div class="feature-row reverse">
+                <div class="feature-image">
+                    <img src="images/firma/Plantillas de posicion.png" alt="Plantillas de posición" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">V·04</span>
+                    <h3 data-i18n="pdfScreenshot4">Plantillas de posición</h3>
+                    <p data-i18n="pdfDesc4">Guarde posiciones de firma reutilizables. Aplíquelas en lote a proyectos completos con un solo clic.</p>
+                </div>
+            </div>
+            <div class="feature-row">
+                <div class="feature-image">
+                    <img src="images/firma/todas las paginas con qr.png" alt="Todas las páginas con QR" loading="lazy" />
+                </div>
+                <div class="feature-content">
+                    <span class="mono-code">V·05</span>
+                    <h3 data-i18n="pdfScreenshot5">Todas las páginas con QR</h3>
+                    <p data-i18n="pdfDesc5">Cada página firmada incluye un código QR de verificación. Seguridad documental sin esfuerzo adicional.</p>
                 </div>
             </div>
             <div class="pdf-actions" style="background:var(--line); margin:2rem 0;">
@@ -873,7 +955,7 @@
                 <div class="card">
                     <span class="mono-code">S·02</span>
                     <svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="38" rx="2" stroke="currentColor" fill="none"/><circle cx="24" cy="24" r="8" stroke="currentColor" fill="none"/></svg>
-                    <h4 data-i18n="reminder2Title">App Firma PDF</h4>
+                    <h4 data-i18n="reminder2Title">#marka — Firma PDF</h4>
                     <p data-i18n="reminder2Desc">Firma digital para planos A1/A0. Rápida y eficiente.</p>
                 </div>
                 <div class="card">
@@ -928,7 +1010,7 @@
                     homeLede: "Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado.",
                     pathEngTitle: "Ingeniería Estructural",
                     pathEngDesc: "Análisis y diseño para proyectos residenciales, comerciales e industriales.",
-                    pathPdfTitle: "App Firma PDF",
+                    pathPdfTitle: "#marka — Firma PDF",
                     pathPdfDesc: "Alternativa a FirmaEC. Optimizada para planos A1/A0. Firme todas las páginas a la vez.",
                     manifestoLine: "Trabajamos",
                     manifestoDesc: "Somos un equipo. Cada cálculo, cada plano, cada firma tiene un propósito estructural. Sin marketing, sin atajos.",
@@ -939,12 +1021,20 @@
                     structuralDesc: "Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado. Luego entregamos análisis y diseño a detalle.",
                     structuralCtaText: "¿Necesita análisis estructural para su proyecto?",
                     structuralCtaBtn: "Solicitar información →",
-                    pdfTitlePart1: "Firma",
-                    pdfTitleItalic: "digital",
+                    pdfTitlePart1: "#marka",
+                    pdfTitleItalic: "Firma digital",
                     pdfTitlePart2: "para planos",
-                    pdfDesc: "Alternativa a FirmaEC, optimizada para A1/A0. Firme todas las páginas a la vez, sin procesos complicados.",
-                    pdfScreenshot1: "Carga de plano A0",
-                    pdfScreenshot2: "Firma múltiple",
+                    pdfDesc: "Alternativa a FirmaEC con #marka. Optimizada para A1/A0. Firme todas las páginas a la vez, sin procesos complicados.",
+                    pdfScreenshot1: "Interfaz inicial simple",
+                    pdfScreenshot2: "Vista amplia para planos",
+                    pdfScreenshot3: "Zoom para posicionar firma",
+                    pdfScreenshot4: "Plantillas de posición",
+                    pdfScreenshot5: "Todas las páginas con QR",
+                    pdfDesc1: "Cargue sus planos A1/A0 al instante. Interfaz limpia y sin distracciones para comenzar a firmar de inmediato.",
+                    pdfDesc2: "Visualice planos de gran formato completos. Navegación fluida en documentos de hasta A0 sin perder detalle.",
+                    pdfDesc3: "Acercamiento preciso para colocar su firma exactamente donde corresponde. Compatible con lápiz táctil y mouse.",
+                    pdfDesc4: "Guarde posiciones de firma reutilizables. Aplíquelas en lote a proyectos completos con un solo clic.",
+                    pdfDesc5: "Cada página firmada incluye un código QR de verificación. Seguridad documental sin esfuerzo adicional.",
                     pdfTrialTitle: "Descarga de prueba gratuita",
                     pdfTrialDesc: "Versión con fecha de vencimiento.",
                     pdfTrialBtn: "Descargar versión de prueba",
@@ -956,7 +1046,7 @@
                     contactTitleItalic: "directo",
                     reminder1Title: "Ingeniería Estructural",
                     reminder1Desc: "Análisis y diseño para todo tipo de proyectos de construcción.",
-                    reminder2Title: "App Firma PDF",
+                    reminder2Title: "#marka — Firma PDF",
                     reminder2Desc: "Firma digital para planos A1/A0. Rápida y eficiente.",
                     reminder3Title: "Base en Cuenca",
                     reminder3Desc: "Atendemos proyectos en toda la región. Visitas a sitio incluidas.",
@@ -988,8 +1078,8 @@
                     homeLede: "Every project starts different. We study your site, plans, and constraints to determine the right structural approach.",
                     pathEngTitle: "Structural Engineering",
                     pathEngDesc: "Analysis and design for residential, commercial, and industrial projects.",
-                    pathPdfTitle: "PDF Signing App",
-                    pathPdfDesc: "Alternative to FirmaEC. Optimized for A1/A0 blueprints. Sign all pages at once.",
+                    pathPdfTitle: "#marka — PDF Signing",
+                    pathPdfDesc: "Alternative to FirmaEC with #marka. Optimized for A1/A0 blueprints. Sign all pages at once.",
                     manifestoLine: "We work",
                     manifestoDesc: "We are a team. Every calculation, every drawing, every signature serves a structural purpose. No marketing, no shortcuts.",
                     homeCtaText: "Let's talk about your project.",
@@ -999,12 +1089,20 @@
                     structuralDesc: "Every project starts different. We study your site, plans, and constraints to determine the right structural approach. Then we deliver detailed analysis and design.",
                     structuralCtaText: "Need structural analysis for your project?",
                     structuralCtaBtn: "Request information →",
-                    pdfTitlePart1: "Digital",
-                    pdfTitleItalic: "signature",
+                    pdfTitlePart1: "#marka",
+                    pdfTitleItalic: "Digital signature",
                     pdfTitlePart2: "for blueprints",
-                    pdfDesc: "Alternative to FirmaEC, optimized for A1/A0. Sign all pages at once, without complicated processes.",
-                    pdfScreenshot1: "A0 blueprint upload",
-                    pdfScreenshot2: "Batch signing",
+                    pdfDesc: "Alternative to FirmaEC with #marka. Optimized for A1/A0. Sign all pages at once, without complicated processes.",
+                    pdfScreenshot1: "Simple initial interface",
+                    pdfScreenshot2: "Wide view for blueprints",
+                    pdfScreenshot3: "Zoom to position signature",
+                    pdfScreenshot4: "Position templates",
+                    pdfScreenshot5: "All pages with QR",
+                    pdfDesc1: "Load your A1/A0 blueprints instantly. A clean, distraction-free interface to start signing right away.",
+                    pdfDesc2: "View full large-format blueprints. Smooth navigation in documents up to A0 without losing detail.",
+                    pdfDesc3: "Precise zoom to place your signature exactly where it belongs. Compatible with stylus and mouse.",
+                    pdfDesc4: "Save reusable signature positions. Apply them in batch to entire projects with a single click.",
+                    pdfDesc5: "Every signed page includes a verification QR code. Document security with no extra effort.",
                     pdfTrialTitle: "Free trial download",
                     pdfTrialDesc: "Time-limited version.",
                     pdfTrialBtn: "Download trial",
@@ -1016,7 +1114,7 @@
                     contactTitleItalic: "direct",
                     reminder1Title: "Structural Engineering",
                     reminder1Desc: "Analysis and design for all types of construction projects.",
-                    reminder2Title: "PDF Signing App",
+                    reminder2Title: "#marka — PDF Signing",
                     reminder2Desc: "Digital signature for A1/A0 blueprints. Fast and efficient.",
                     reminder3Title: "Based in Cuenca",
                     reminder3Desc: "We serve projects throughout the region. Site visits included.",
@@ -1048,8 +1146,8 @@
                     homeLede: "每个项目都不同。我们研究您的场地、图纸和限制条件，以确定正确的结构方案。",
                     pathEngTitle: "结构工程",
                     pathEngDesc: "住宅、商业和工业项目的分析与设计。",
-                    pathPdfTitle: "PDF签名应用",
-                    pathPdfDesc: "FirmaEC的替代方案。针对A1/A0蓝图优化。一次性签署所有页面。",
+                    pathPdfTitle: "#marka — PDF签名",
+                    pathPdfDesc: "使用#marka替代FirmaEC。针对A1/A0蓝图优化。一次性签署所有页面。",
                     manifestoLine: "我们工作",
                     manifestoDesc: "我们是一个团队。每一个计算、每一张图纸、每一个签名都有其结构目的。没有营销，没有捷径。",
                     homeCtaText: "谈谈您的项目。",
@@ -1059,12 +1157,20 @@
                     structuralDesc: "每个项目都不同。我们研究您的场地、图纸和限制条件，以确定正确的结构方案。然后交付详细的分析和设计。",
                     structuralCtaText: "需要为您的项目进行结构分析？",
                     structuralCtaBtn: "索取信息 →",
-                    pdfTitlePart1: "数字",
-                    pdfTitleItalic: "签名",
+                    pdfTitlePart1: "#marka",
+                    pdfTitleItalic: "数字签名",
                     pdfTitlePart2: "用于蓝图",
-                    pdfDesc: "FirmaEC的替代方案，针对A1/A0进行了优化。一次性签署所有页面，无需复杂流程。",
-                    pdfScreenshot1: "A0蓝图上传",
-                    pdfScreenshot2: "批量签名",
+                    pdfDesc: "使用#marka替代FirmaEC。针对A1/A0优化。一次性签署所有页面，无需复杂流程。",
+                    pdfScreenshot1: "简洁初始界面",
+                    pdfScreenshot2: "蓝图宽幅视图",
+                    pdfScreenshot3: "缩放定位签名",
+                    pdfScreenshot4: "位置模板",
+                    pdfScreenshot5: "所有页面带QR",
+                    pdfDesc1: "即时加载您的A1/A0蓝图。简洁无干扰的界面，立即开始签名。",
+                    pdfDesc2: "查看完整的大幅面蓝图。在A0文档中流畅导航，不丢失细节。",
+                    pdfDesc3: "精确缩放，将签名放置在正确位置。兼容触控笔和鼠标。",
+                    pdfDesc4: "保存可重复使用的签名位置。一键批量应用于整个项目。",
+                    pdfDesc5: "每个签名页面都包含验证二维码。无需额外工作即可实现文档安全。",
                     pdfTrialTitle: "免费试用下载",
                     pdfTrialDesc: "限时版本。",
                     pdfTrialBtn: "下载试用版",
@@ -1076,7 +1182,7 @@
                     contactTitleItalic: "直接",
                     reminder1Title: "结构工程",
                     reminder1Desc: "各类建筑项目的分析与设计。",
-                    reminder2Title: "PDF签名应用",
+                    reminder2Title: "#marka — PDF签名",
                     reminder2Desc: "A1/A0蓝图的数字签名。快速高效。",
                     reminder3Title: "昆卡基地",
                     reminder3Desc: "服务覆盖整个地区。包含现场勘察。",
