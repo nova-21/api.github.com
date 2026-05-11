@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estructuras Cuenca — Ingeniería Estructural</title>
+    <!-- Typography: Instrument Serif, Space Grotesk, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* ── Color system (OKLCH, light only) ── */
+            --background: oklch(0.985 0.005 240);
+            --paper: oklch(0.97 0.008 240);
+            --ink: oklch(0.18 0.025 250);
+            --foreground: oklch(0.22 0.03 250);
+            --graphite: oklch(0.32 0.02 250);
+            --muted-foreground: oklch(0.45 0.025 250);
+            --line: oklch(0.85 0.015 240);
+            --rule: oklch(0.78 0.02 240);
+            --blueprint: oklch(0.45 0.13 245);
+            --blueprint-deep: oklch(0.28 0.11 250);
+            --blueprint-glow: oklch(0.65 0.18 240);
+            --cyan: oklch(0.78 0.12 220);
+            --primary-foreground: #fefdfb;
+            /* darker grid color: 30% darker than blueprint (lightness 0.45 → 0.315) */
+            --blueprint-grid-dark: oklch(0.315 0.13 245);
+            --radius: 4px;
+            --font-display: 'Instrument Serif', serif;
+            --font-sans: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: var(--background);
+            color: var(--foreground);
+        }
+        body {
+            font-family: var(--font-sans);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            letter-spacing: 0.01em;
+        }
+
+        /* ── Utilities ── */
+        .mono-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted-foreground);
+            font-weight: 400;
+        }
+        .hairline {
+            border: 1px solid var(--line);
+        }
+        .hairline-t {
+            border-top: 1px solid var(--line);
+        }
+        .hairline-b {
+            border-bottom: 1px solid var(--line);
+        }
+        .grid-paper {
+            background-image:
+                linear-gradient(color-mix(in oklch, var(--blueprint) 8%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in oklch, var(--blueprint) 8%, transparent) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        /* Original fine grid (for reference, still usable elsewhere) */
+        .grid-paper-fine {
+            background-image:
+                linear-gradient(color-mix(in oklch, var(--blueprint) 5%, transparent) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, color-mix(in oklch, var(--blueprint) 5%, transparent) 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        /* Darker fine grid for hero sections (30% darker) */
+        .grid-paper-fine-dark {
+            background-image:
+                linear-gradient(color-mix(in oklch, var(--blueprint-grid-dark) 8%, transparent) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, color-mix(in oklch, var(--blueprint-grid-dark) 8%, transparent) 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        .tick-rule {
+            background: repeating-linear-gradient(to right, var(--rule) 0, var(--rule) 1px, transparent 1px, transparent 8px);
+            height: 1px;
+            flex: 1;
+            margin: 0 1rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4em;
+            padding: 0.75rem 1.8rem;
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 0.02em;
+            border-radius: 0;
+        }
+        .btn-primary {
+            background: var(--ink);
+            color: var(--primary-foreground);
+            border: 1px solid var(--ink);
+        }
+        .btn-primary:hover {
+            background: var(--blueprint-deep);
+            border-color: var(--blueprint-deep);
+            transform: translateY(-1px);
+            box-shadow: 0 20px 60px -30px var(--blueprint-deep);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+        .btn-outline:hover {
+            background: var(--paper);
+            border-color: var(--blueprint);
+            color: var(--blueprint-deep);
+        }
+
+        /* ── Header ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            height: 4rem;
+            background: oklch(0.985 0.005 240 / 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo-group .monogram {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+        .logo-group .text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+        .logo-group .text .name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--ink);
+        }
+        .logo-group .text .caption {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--muted-foreground);
+            margin-top: 1px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            position: relative;
+            text-decoration: none;
+            color: var(--graphite);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.4rem 0.8rem;
+            transition: color 0.2s;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0.8rem;
+            right: 0.8rem;
+            height: 1.5px;
+            background: var(--blueprint);
+            transform: scaleX(0);
+            transition: transform 0.25s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--ink);
+        }
+        .nav-links a.active::after {
+            transform: scaleX(1);
+        }
+        .lang-switcher {
+            display: flex;
+            gap: 2px;
+            border: 1px solid var(--line);
+            padding: 2px;
+            border-radius: 0;
+        }
+        .lang-switcher button {
+            border: none;
+            background: transparent;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            color: var(--muted-foreground);
+            transition: all 0.15s;
+            text-transform: uppercase;
+        }
+        .lang-switcher button.active-lang {
+            background: var(--ink);
+            color: white;
+        }
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* ── Main & pages ── */
+        main {
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+        }
+        .page {
+            display: none;
+            animation: fadeSlide 0.35s ease;
+        }
+        .page.active-page {
+            display: block;
+        }
+        @keyframes fadeSlide {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Hero section (common) ── */
+        .hero {
+            position: relative;
+            padding: 6rem 0 3rem;
+            overflow: hidden;
+        }
+        .hero .grid-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 400;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            text-wrap: balance;
+            margin-bottom: 1.25rem;
+        }
+        .hero h1 i {
+            font-style: italic;
+            color: var(--blueprint);
+        }
+        .hero .lede {
+            font-size: 1.1rem;
+            color: var(--graphite);
+            max-width: 620px;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+        .hero-strip {
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+            border-top: 1px solid var(--line);
+            padding-top: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            color: var(--muted-foreground);
+            text-transform: uppercase;
+        }
+        .hero-strip .left {
+            flex-shrink: 0;
+        }
+        .hero-strip .right {
+            flex-shrink: 0;
+        }
+
+        /* ── 12-col split ── */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 3rem;
+            align-items: start;
+            padding: 4rem 0;
+        }
+        .split .rail {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted-foreground);
+            padding-top: 0.4rem;
+        }
+        .split .content h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+            text-wrap: balance;
+        }
+        .split .content p {
+            color: var(--graphite);
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+
+        /* ── Cards & grid ── */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin: 2rem 0;
+        }
+        .card {
+            background: var(--background);
+            padding: 2rem 1.5rem;
+            position: relative;
+            transition: box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .card:hover {
+            box-shadow: 0 20px 60px -30px var(--blueprint-deep);
+        }
+        .card .mono-code {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            color: var(--muted-foreground);
+        }
+        .card svg {
+            width: 48px;
+            height: 48px;
+            stroke: var(--blueprint-deep);
+            fill: none;
+            stroke-width: 1.2;
+        }
+        .card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--ink);
+        }
+        .card p {
+            font-size: 0.85rem;
+            color: var(--graphite);
+            line-height: 1.5;
+        }
+        .card .arrow {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--blueprint);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: auto;
+        }
+
+        /* ── Project grid (structural) ── */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin: 2rem 0;
+        }
+        .project-card {
+            background: var(--background);
+            padding: 1.25rem;
+            position: relative;
+        }
+        .project-card .blueprint-svg {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+        .project-card .mono-code {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            color: var(--muted-foreground);
+        }
+        .project-card .type {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--ink);
+        }
+        .project-card .location {
+            font-size: 0.75rem;
+            color: var(--graphite);
+        }
+        .project-card .client {
+            font-size: 0.7rem;
+            color: var(--muted-foreground);
+            font-style: italic;
+        }
+
+        /* ── Inverted manifesto ── */
+        .ink-section {
+            background: var(--ink);
+            color: var(--primary-foreground);
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+            position: relative;
+        }
+        .ink-section .mono-label {
+            color: var(--cyan);
+        }
+        .ink-section h2 {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            margin: 1rem 0;
+        }
+        .ink-section h2 em {
+            font-style: italic;
+            color: var(--cyan);
+        }
+        .ink-section p {
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 500px;
+        }
+
+        /* ── CTA band (still uses .grid-paper for the 32px grid) ── */
+        .cta-band {
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+        }
+        .cta-band .cta-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--background);
+            border: 1px solid var(--line);
+            padding: 2.5rem;
+        }
+
+        /* ── Contact methods ── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin: 2rem 0;
+        }
+        .contact-item {
+            background: var(--background);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.2s;
+        }
+        .contact-item:hover {
+            box-shadow: 0 20px 60px -30px var(--blueprint-deep);
+        }
+        .wechat-hidden {
+            display: none;
+        }
+        .wechat-visible {
+            display: block;
+        }
+
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 2rem;
+            margin-top: auto;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            color: var(--muted-foreground);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+        .pulse-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--blueprint);
+            border-radius: 50%;
+            margin-right: 0.3rem;
+            animation: pulse-opacity 2.4s infinite;
+        }
+        @keyframes pulse-opacity {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .split {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .nav-links {
+                gap: 0.5rem;
+            }
+        }
+        @media (max-width: 640px) {
+            header {
+                padding: 0 1rem;
+            }
+            .nav-links a {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.7rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ═══════════════ HEADER ═══════════════ -->
+    <header>
+        <div class="header-inner">
+            <a href="#" class="logo-group" data-nav="home">
+                <svg class="monogram" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="1" y="1" width="26" height="26" stroke="var(--blueprint-deep)" stroke-width="1.5"/>
+                    <polyline points="14,4 24,14 14,24 4,14" stroke="var(--blueprint)" stroke-width="1.2" fill="none"/>
+                    <circle cx="14" cy="14" r="2.5" fill="var(--blueprint-deep)" stroke="none"/>
+                </svg>
+                <div class="text">
+                    <span class="name" data-i18n="companyName">Estructuras Cuenca</span>
+                    <span class="caption">CONSTRUCCIÓN · CUENCA</span>
+                </div>
+            </a>
+            <nav class="nav-links" id="mainNav">
+                <a href="#" data-nav="home" class="active" data-i18n="navHome">01 INICIO</a>
+                <a href="#" data-nav="structural" data-i18n="navStructural">02 ESTRUCTURAL</a>
+                <a href="#" data-nav="pdfapp" data-i18n="navPdfApp">03 FIRMA PDF</a>
+                <a href="#" data-nav="contact" data-i18n="navContact">04 CONTACTO</a>
+            </nav>
+            <div class="lang-switcher" id="langSwitcher">
+                <button data-lang="es" class="active-lang">ES</button>
+                <button data-lang="en">EN</button>
+                <button data-lang="zh">ZH</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
+    <main>
+        <!-- HOME PAGE -->
+        <section class="page active-page" id="page-home">
+            <div class="hero">
+                <!-- Using the darker grid class -->
+                <div class="grid-bg grid-paper-fine-dark"></div>
+                <div class="hero-content">
+                    <div class="mono-label" style="margin-bottom:0.5rem;">01 / INICIO</div>
+                    <h1><span data-i18n="homeTitlePart1">Ingeniería</span> <i data-i18n="homeTitleItalic">estructural</i> <span data-i18n="homeTitlePart2">en Cuenca, Ecuador</span></h1>
+                    <p class="lede" data-i18n="homeLede">Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado.</p>
+                    <div class="hero-strip">
+                        <span class="left">SECCIÓN A — A'</span>
+                        <span class="tick-rule"></span>
+                        <span class="right">ESCALA 1:200 ↓ DESCENDER</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Two clear paths as discipline cards -->
+            <div class="card-grid">
+                <a href="#" class="card" data-nav="structural">
+                    <span class="mono-code">T·01</span>
+                    <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" stroke="currentColor" fill="none"/><polyline points="6,18 24,4 42,18" stroke="currentColor" fill="none"/><line x1="24" y1="28" x2="24" y2="42" stroke="currentColor"/></svg>
+                    <h3 data-i18n="pathEngTitle">Ingeniería Estructural</h3>
+                    <p data-i18n="pathEngDesc">Análisis y diseño para proyectos residenciales, comerciales e industriales.</p>
+                    <span class="arrow">Entrar →</span>
+                </a>
+                <a href="#" class="card" data-nav="pdfapp">
+                    <span class="mono-code">D·02</span>
+                    <svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="38" rx="2" stroke="currentColor" fill="none"/><line x1="16" y1="18" x2="32" y2="18" stroke="currentColor"/><line x1="16" y1="26" x2="28" y2="26" stroke="currentColor"/><circle cx="33" cy="32" r="5" stroke="currentColor" fill="none"/><path d="M31 30 L33 32 L36 29" stroke="currentColor"/></svg>
+                    <h3 data-i18n="pathPdfTitle">App Firma PDF</h3>
+                    <p data-i18n="pathPdfDesc">Alternativa a FirmaEC. Optimizada para planos A1/A0. Firme todas las páginas a la vez.</p>
+                    <span class="arrow">Entrar →</span>
+                </a>
+            </div>
+
+            <!-- Inverted manifesto -->
+            <div class="ink-section">
+                <span class="mono-label">— MANIFIESTO</span>
+                <h2><em data-i18n="manifestoLine">Trabajamos</em> con precisión, <br><span style="color:rgba(255,255,255,0.7);">no con adornos.</span></h2>
+                <p data-i18n="manifestoDesc">Somos un equipo. Cada cálculo, cada plano, cada firma tiene un propósito estructural. Sin marketing, sin atajos.</p>
+            </div>
+
+            <!-- CTA band with grid-paper background -->
+            <div class="cta-band grid-paper">
+                <div class="cta-card">
+                    <span class="mono-label">— CONTACTO</span>
+                    <h3 style="font-family:var(--font-display);font-size:2rem;margin:0.5rem 0;" data-i18n="homeCtaText">Hablemos de su proyecto.</h3>
+                    <button class="btn btn-primary" data-nav="contact" data-i18n="homeCtaBtn">Contáctenos →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRUCTURAL ENGINEERING PAGE -->
+        <section class="page" id="page-structural">
+            <div class="hero">
+                <div class="grid-bg grid-paper-fine-dark"></div>
+                <div class="hero-content">
+                    <div class="mono-label">02 / ESTRUCTURAL</div>
+                    <h1><span data-i18n="structuralTitlePart1">Análisis</span> <i data-i18n="structuralTitleItalic">estructural</i></h1>
+                    <p class="lede" data-i18n="structuralDesc">Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado. Luego entregamos análisis y diseño a detalle.</p>
+                </div>
+            </div>
+            <div class="project-grid" id="projectGrid"></div>
+            <div class="cta-band grid-paper">
+                <div class="cta-card">
+                    <span class="mono-label">— CONSULTE</span>
+                    <p data-i18n="structuralCtaText" style="margin:0.5rem 0;">¿Necesita análisis estructural para su proyecto?</p>
+                    <button class="btn btn-primary" data-nav="contact" data-i18n="structuralCtaBtn">Solicitar información →</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PDF SIGNING APP PAGE -->
+        <section class="page" id="page-pdfapp">
+            <div class="hero">
+                <div class="grid-bg grid-paper-fine-dark"></div>
+                <div class="hero-content">
+                    <div class="mono-label">03 / FIRMA PDF</div>
+                    <h1><span data-i18n="pdfTitlePart1">Firma</span> <i data-i18n="pdfTitleItalic">digital</i> <span data-i18n="pdfTitlePart2">para planos</span></h1>
+                    <p class="lede" data-i18n="pdfDesc">Alternativa a FirmaEC, optimizada para A1/A0. Firme todas las páginas a la vez, sin procesos complicados.</p>
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); margin:2rem 0;">
+                <div class="card" style="padding:2rem;">
+                    <span class="mono-code">V·01</span>
+                    <div style="height:120px; display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 80 80" width="80"><rect x="10" y="5" width="60" height="70" rx="2" stroke="var(--blueprint-deep)" fill="none" stroke-width="1.2"/><line x1="20" y1="15" x2="60" y2="15" stroke="var(--blueprint)" stroke-width="0.8"/><line x1="20" y1="25" x2="50" y2="25" stroke="var(--blueprint)" stroke-width="0.8"/><circle cx="32" cy="45" r="12" stroke="var(--blueprint-deep)" fill="none"/><path d="M26 45 L32 51 L38 45" stroke="var(--blueprint)" stroke-width="1.2"/></svg>
+                    </div>
+                    <p data-i18n="pdfScreenshot1">Carga de plano A0</p>
+                </div>
+                <div class="card" style="padding:2rem;">
+                    <span class="mono-code">V·02</span>
+                    <div style="height:120px; display:flex; align-items:center; justify-content:center;">
+                        <svg viewBox="0 0 80 80" width="80"><rect x="5" y="5" width="70" height="70" rx="2" stroke="var(--blueprint-deep)" fill="none" stroke-width="1.2"/><path d="M25 20 L40 35 L55 20" stroke="var(--blueprint)" fill="none"/><line x1="40" y1="35" x2="40" y2="65" stroke="var(--blueprint)"/><circle cx="55" cy="55" r="12" stroke="var(--blueprint-deep)" fill="none"/></svg>
+                    </div>
+                    <p data-i18n="pdfScreenshot2">Firma múltiple</p>
+                </div>
+            </div>
+            <div style="display:flex; gap:1px; background:var(--line); margin:2rem 0;">
+                <div class="card" style="flex:1;">
+                    <span class="mono-code">T·01</span>
+                    <h4 data-i18n="pdfTrialTitle">Descarga de prueba gratuita</h4>
+                    <p data-i18n="pdfTrialDesc" style="font-size:0.85rem;">Versión con fecha de vencimiento.</p>
+                    <button class="btn btn-outline" id="trialDownloadBtn" data-i18n="pdfTrialBtn">Descargar versión de prueba</button>
+                    <p class="mono-label" style="margin-top:0.5rem;" data-i18n="pdfTrialNote">⚠️ EXPIRA AUTOMÁTICAMENTE</p>
+                </div>
+                <div class="card" style="flex:1;">
+                    <span class="mono-code">C·02</span>
+                    <p data-i18n="pdfPurchaseInfo">Para adquirir la versión completa:</p>
+                    <a href="https://wa.me/593999999999" target="_blank" rel="noopener" class="btn btn-primary" style="margin-top:1rem;" data-i18n="pdfPurchaseBtn">WhatsApp →</a>
+                    <p class="mono-label" style="margin-top:0.5rem;" data-i18n="pdfFuture">PRÓXIMO: LICENCIA EN LÍNEA</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT PAGE -->
+        <section class="page" id="page-contact">
+            <div class="hero">
+                <div class="grid-bg grid-paper-fine-dark"></div>
+                <div class="hero-content">
+                    <div class="mono-label">04 / CONTACTO</div>
+                    <h1><span data-i18n="contactTitle">Contacto</span> <i data-i18n="contactTitleItalic">directo</i></h1>
+                </div>
+            </div>
+            <div class="card-grid">
+                <div class="card">
+                    <span class="mono-code">S·01</span>
+                    <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" stroke="currentColor" fill="none"/><polyline points="6,18 24,4 42,18" stroke="currentColor" fill="none"/></svg>
+                    <h4 data-i18n="reminder1Title">Ingeniería Estructural</h4>
+                    <p data-i18n="reminder1Desc">Análisis y diseño para todo tipo de proyectos de construcción.</p>
+                </div>
+                <div class="card">
+                    <span class="mono-code">S·02</span>
+                    <svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="38" rx="2" stroke="currentColor" fill="none"/><circle cx="24" cy="24" r="8" stroke="currentColor" fill="none"/></svg>
+                    <h4 data-i18n="reminder2Title">App Firma PDF</h4>
+                    <p data-i18n="reminder2Desc">Firma digital para planos A1/A0. Rápida y eficiente.</p>
+                </div>
+                <div class="card">
+                    <span class="mono-code">S·03</span>
+                    <svg viewBox="0 0 48 48"><circle cx="24" cy="20" r="16" stroke="currentColor" fill="none"/><line x1="24" y1="4" x2="24" y2="36" stroke="currentColor"/><circle cx="24" cy="20" r="4" fill="currentColor"/></svg>
+                    <h4 data-i18n="reminder3Title">Base en Cuenca</h4>
+                    <p data-i18n="reminder3Desc">Atendemos proyectos en toda la región. Visitas a sitio incluidas.</p>
+                </div>
+            </div>
+            <div class="contact-grid">
+                <a href="https://wa.me/593999999999" target="_blank" rel="noopener" class="contact-item">
+                    <span class="mono-label">WhatsApp</span>
+                    <p style="margin-top:0.5rem;">+593 99 999 9999</p>
+                </a>
+                <a href="mailto:contacto@estructurascuenca.com" class="contact-item">
+                    <span class="mono-label">Email</span>
+                    <p style="margin-top:0.5rem;">contacto@estructurascuenca.com</p>
+                </a>
+                <div class="contact-item wechat-hidden" id="contactWeChat">
+                    <span class="mono-label">WeChat</span>
+                    <p style="margin-top:0.5rem;">EstructurasCuenca_EC</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer>
+        <div>
+            <span class="pulse-dot"></span> DISPONIBLE PARA PROYECTOS
+        </div>
+        <div class="mono-label">
+            LAT −2.9005 · LON −79.0045 · ALT 2560m
+        </div>
+        <div>
+            © <span data-i18n="companyName">Estructuras Cuenca</span>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            const translations = {
+                es: {
+                    companyName: "Estructuras Cuenca",
+                    navHome: "01 INICIO",
+                    navStructural: "02 ESTRUCTURAL",
+                    navPdfApp: "03 FIRMA PDF",
+                    navContact: "04 CONTACTO",
+                    homeTitlePart1: "Ingeniería",
+                    homeTitleItalic: "estructural",
+                    homeTitlePart2: "en Cuenca, Ecuador",
+                    homeLede: "Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado.",
+                    pathEngTitle: "Ingeniería Estructural",
+                    pathEngDesc: "Análisis y diseño para proyectos residenciales, comerciales e industriales.",
+                    pathPdfTitle: "App Firma PDF",
+                    pathPdfDesc: "Alternativa a FirmaEC. Optimizada para planos A1/A0. Firme todas las páginas a la vez.",
+                    manifestoLine: "Trabajamos",
+                    manifestoDesc: "Somos un equipo. Cada cálculo, cada plano, cada firma tiene un propósito estructural. Sin marketing, sin atajos.",
+                    homeCtaText: "Hablemos de su proyecto.",
+                    homeCtaBtn: "Contáctenos →",
+                    structuralTitlePart1: "Análisis",
+                    structuralTitleItalic: "estructural",
+                    structuralDesc: "Cada proyecto inicia distinto. Estudiamos su sitio, planos y restricciones para determinar el enfoque estructural adecuado. Luego entregamos análisis y diseño a detalle.",
+                    structuralCtaText: "¿Necesita análisis estructural para su proyecto?",
+                    structuralCtaBtn: "Solicitar información →",
+                    pdfTitlePart1: "Firma",
+                    pdfTitleItalic: "digital",
+                    pdfTitlePart2: "para planos",
+                    pdfDesc: "Alternativa a FirmaEC, optimizada para A1/A0. Firme todas las páginas a la vez, sin procesos complicados.",
+                    pdfScreenshot1: "Carga de plano A0",
+                    pdfScreenshot2: "Firma múltiple",
+                    pdfTrialTitle: "Descarga de prueba gratuita",
+                    pdfTrialDesc: "Versión con fecha de vencimiento.",
+                    pdfTrialBtn: "Descargar versión de prueba",
+                    pdfTrialNote: "⚠️ EXPIRA AUTOMÁTICAMENTE",
+                    pdfPurchaseInfo: "Para adquirir la versión completa:",
+                    pdfPurchaseBtn: "WhatsApp →",
+                    pdfFuture: "PRÓXIMO: LICENCIA EN LÍNEA",
+                    contactTitle: "Contacto",
+                    contactTitleItalic: "directo",
+                    reminder1Title: "Ingeniería Estructural",
+                    reminder1Desc: "Análisis y diseño para todo tipo de proyectos de construcción.",
+                    reminder2Title: "App Firma PDF",
+                    reminder2Desc: "Firma digital para planos A1/A0. Rápida y eficiente.",
+                    reminder3Title: "Base en Cuenca",
+                    reminder3Desc: "Atendemos proyectos en toda la región. Visitas a sitio incluidas.",
+                    projectTypeLabels: [
+                        "Vivienda residencial pequeña", "Vivienda residencial grande", "Edificio residencial multi-piso",
+                        "Edificio comercial", "Aulario universitario", "Bodega industrial",
+                        "Edificio con estacionamiento subterráneo", "Estructura bancaria"
+                    ],
+                    projectLocations: [
+                        "Cuenca — El Valle", "Cuenca — Challuabamba", "Cuenca — Centro Histórico",
+                        "Cuenca — Av. Solano", "Cuenca — Campus Universitario", "Cuenca — Zona Industrial",
+                        "Cuenca — Ricaurte", "Cuenca — Centro"
+                    ],
+                    projectClients: [
+                        "Cliente privado", "Constructora local", "Constructora local",
+                        "Inmobiliaria regional", "Universidad local", "Empresa industrial",
+                        "Constructora local", "Entidad bancaria"
+                    ]
+                },
+                en: {
+                    companyName: "Estructuras Cuenca",
+                    navHome: "01 HOME",
+                    navStructural: "02 STRUCTURAL",
+                    navPdfApp: "03 PDF APP",
+                    navContact: "04 CONTACT",
+                    homeTitlePart1: "Structural",
+                    homeTitleItalic: "engineering",
+                    homeTitlePart2: "in Cuenca, Ecuador",
+                    homeLede: "Every project starts different. We study your site, plans, and constraints to determine the right structural approach.",
+                    pathEngTitle: "Structural Engineering",
+                    pathEngDesc: "Analysis and design for residential, commercial, and industrial projects.",
+                    pathPdfTitle: "PDF Signing App",
+                    pathPdfDesc: "Alternative to FirmaEC. Optimized for A1/A0 blueprints. Sign all pages at once.",
+                    manifestoLine: "We work",
+                    manifestoDesc: "We are a team. Every calculation, every drawing, every signature serves a structural purpose. No marketing, no shortcuts.",
+                    homeCtaText: "Let's talk about your project.",
+                    homeCtaBtn: "Contact us →",
+                    structuralTitlePart1: "Structural",
+                    structuralTitleItalic: "analysis",
+                    structuralDesc: "Every project starts different. We study your site, plans, and constraints to determine the right structural approach. Then we deliver detailed analysis and design.",
+                    structuralCtaText: "Need structural analysis for your project?",
+                    structuralCtaBtn: "Request information →",
+                    pdfTitlePart1: "Digital",
+                    pdfTitleItalic: "signature",
+                    pdfTitlePart2: "for blueprints",
+                    pdfDesc: "Alternative to FirmaEC, optimized for A1/A0. Sign all pages at once, without complicated processes.",
+                    pdfScreenshot1: "A0 blueprint upload",
+                    pdfScreenshot2: "Batch signing",
+                    pdfTrialTitle: "Free trial download",
+                    pdfTrialDesc: "Time-limited version.",
+                    pdfTrialBtn: "Download trial",
+                    pdfTrialNote: "⚠️ EXPIRES AUTOMATICALLY",
+                    pdfPurchaseInfo: "To purchase the full version:",
+                    pdfPurchaseBtn: "WhatsApp →",
+                    pdfFuture: "COMING: ONLINE LICENSE",
+                    contactTitle: "Contact",
+                    contactTitleItalic: "direct",
+                    reminder1Title: "Structural Engineering",
+                    reminder1Desc: "Analysis and design for all types of construction projects.",
+                    reminder2Title: "PDF Signing App",
+                    reminder2Desc: "Digital signature for A1/A0 blueprints. Fast and efficient.",
+                    reminder3Title: "Based in Cuenca",
+                    reminder3Desc: "We serve projects throughout the region. Site visits included.",
+                    projectTypeLabels: [
+                        "Small residential home", "Large residential home", "Multi-story residential building",
+                        "Commercial building", "University classroom block", "Industrial warehouse",
+                        "Building with subterranean parking", "Bank structure"
+                    ],
+                    projectLocations: [
+                        "Cuenca — El Valle", "Cuenca — Challuabamba", "Cuenca — Historic Center",
+                        "Cuenca — Solano Ave.", "Cuenca — University Campus", "Cuenca — Industrial Zone",
+                        "Cuenca — Ricaurte", "Cuenca — Downtown"
+                    ],
+                    projectClients: [
+                        "Private client", "Local construction co.", "Local construction co.",
+                        "Regional developer", "Local university", "Industrial company",
+                        "Local construction co.", "Banking institution"
+                    ]
+                },
+                zh: {
+                    companyName: "Estructuras Cuenca",
+                    navHome: "01 首页",
+                    navStructural: "02 结构",
+                    navPdfApp: "03 PDF应用",
+                    navContact: "04 联系",
+                    homeTitlePart1: "结构",
+                    homeTitleItalic: "工程",
+                    homeTitlePart2: "在厄瓜多尔昆卡",
+                    homeLede: "每个项目都不同。我们研究您的场地、图纸和限制条件，以确定正确的结构方案。",
+                    pathEngTitle: "结构工程",
+                    pathEngDesc: "住宅、商业和工业项目的分析与设计。",
+                    pathPdfTitle: "PDF签名应用",
+                    pathPdfDesc: "FirmaEC的替代方案。针对A1/A0蓝图优化。一次性签署所有页面。",
+                    manifestoLine: "我们工作",
+                    manifestoDesc: "我们是一个团队。每一个计算、每一张图纸、每一个签名都有其结构目的。没有营销，没有捷径。",
+                    homeCtaText: "谈谈您的项目。",
+                    homeCtaBtn: "联系我们 →",
+                    structuralTitlePart1: "结构",
+                    structuralTitleItalic: "分析",
+                    structuralDesc: "每个项目都不同。我们研究您的场地、图纸和限制条件，以确定正确的结构方案。然后交付详细的分析和设计。",
+                    structuralCtaText: "需要为您的项目进行结构分析？",
+                    structuralCtaBtn: "索取信息 →",
+                    pdfTitlePart1: "数字",
+                    pdfTitleItalic: "签名",
+                    pdfTitlePart2: "用于蓝图",
+                    pdfDesc: "FirmaEC的替代方案，针对A1/A0进行了优化。一次性签署所有页面，无需复杂流程。",
+                    pdfScreenshot1: "A0蓝图上传",
+                    pdfScreenshot2: "批量签名",
+                    pdfTrialTitle: "免费试用下载",
+                    pdfTrialDesc: "限时版本。",
+                    pdfTrialBtn: "下载试用版",
+                    pdfTrialNote: "⚠️ 会自动过期",
+                    pdfPurchaseInfo: "购买完整版：",
+                    pdfPurchaseBtn: "WhatsApp →",
+                    pdfFuture: "即将推出：在线许可证",
+                    contactTitle: "联系",
+                    contactTitleItalic: "直接",
+                    reminder1Title: "结构工程",
+                    reminder1Desc: "各类建筑项目的分析与设计。",
+                    reminder2Title: "PDF签名应用",
+                    reminder2Desc: "A1/A0蓝图的数字签名。快速高效。",
+                    reminder3Title: "昆卡基地",
+                    reminder3Desc: "服务覆盖整个地区。包含现场勘察。",
+                    projectTypeLabels: [
+                        "小型住宅", "大型住宅", "多层住宅楼",
+                        "商业建筑", "大学教学楼", "工业仓库",
+                        "带地下停车场的建筑", "银行结构"
+                    ],
+                    projectLocations: [
+                        "昆卡 — El Valle", "昆卡 — Challuabamba", "昆卡 — 历史中心",
+                        "昆卡 — Solano大道", "昆卡 — 大学校园", "昆卡 — 工业区",
+                        "昆卡 — Ricaurte", "昆卡 — 市中心"
+                    ],
+                    projectClients: [
+                        "私人客户", "当地建筑公司", "当地建筑公司",
+                        "区域开发商", "当地大学", "工业公司",
+                        "当地建筑公司", "银行机构"
+                    ]
+                }
+            };
+
+            let currentLang = 'es';
+            let currentPage = 'home';
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('nav a[data-nav]');
+            const langButtons = document.querySelectorAll('.lang-switcher button[data-lang]');
+            const contactWeChat = document.getElementById('contactWeChat');
+            const projectGrid = document.getElementById('projectGrid');
+            const trialBtn = document.getElementById('trialDownloadBtn');
+
+            function switchPage(pageName) {
+                currentPage = pageName;
+                pages.forEach(p => p.classList.remove('active-page'));
+                document.getElementById('page-' + pageName)?.classList.add('active-page');
+                navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('data-nav') === pageName));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function switchLang(lang) {
+                currentLang = lang;
+                document.documentElement.lang = lang;
+                langButtons.forEach(b => b.classList.toggle('active-lang', b.dataset.lang === lang));
+                applyTranslations(lang);
+                if (contactWeChat) {
+                    contactWeChat.classList.toggle('wechat-hidden', lang !== 'zh');
+                    contactWeChat.classList.toggle('wechat-visible', lang === 'zh');
+                }
+                buildProjectGrid(lang);
+                localStorage.setItem('ec_pref_lang', lang);
+            }
+
+            function applyTranslations(lang) {
+                const t = translations[lang] || translations.es;
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.dataset.i18n;
+                    if (t[key]) el.textContent = t[key];
+                });
+            }
+
+            function buildProjectGrid(lang) {
+                if (!projectGrid) return;
+                const t = translations[lang] || translations.es;
+                const icons = [
+                    '<svg viewBox="0 0 40 30"><rect x="2" y="10" width="36" height="18" stroke="var(--blueprint-deep)" fill="none" stroke-width="1.2"/><polygon points="20,4 34,10 6,10" stroke="var(--blueprint)" fill="none"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="4" y="8" width="32" height="20" stroke="var(--blueprint-deep)" fill="none"/><rect x="10" y="14" width="8" height="8" stroke="var(--blueprint)"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="2" y="2" width="36" height="26" stroke="var(--blueprint-deep)" fill="none"/><line x1="20" y1="2" x2="20" y2="28" stroke="var(--blueprint)"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="2" y="2" width="36" height="26" stroke="var(--blueprint-deep)" fill="none"/><rect x="10" y="8" width="8" height="6" stroke="var(--blueprint)"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="4" y="4" width="32" height="22" stroke="var(--blueprint-deep)" fill="none"/><circle cx="20" cy="15" r="6" stroke="var(--blueprint)"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="2" y="2" width="36" height="26" stroke="var(--blueprint-deep)" fill="none"/><path d="M6 14 L34 14" stroke="var(--blueprint)"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="2" y="6" width="36" height="20" stroke="var(--blueprint-deep)" fill="none"/><rect x="8" y="12" width="10" height="8" stroke="var(--blueprint)" fill="none"/></svg>',
+                    '<svg viewBox="0 0 40 30"><rect x="2" y="8" width="36" height="18" stroke="var(--blueprint-deep)" fill="none"/><circle cx="20" cy="17" r="4" fill="var(--blueprint)"/></svg>'
+                ];
+                let html = '';
+                t.projectTypeLabels.forEach((type, i) => {
+                    html += `
+                <div class="project-card">
+                  <span class="mono-code">P·${String(i+1).padStart(2,'0')}</span>
+                  <div class="blueprint-svg">${icons[i]}</div>
+                  <div class="type">${type}</div>
+                  <div class="location">${t.projectLocations[i]}</div>
+                  <div class="client">${t.projectClients[i]}</div>
+                </div>`;
+                });
+                projectGrid.innerHTML = html;
+            }
+
+            document.querySelectorAll('[data-nav]').forEach(el => {
+                el.addEventListener('click', function(e) {
+                    const page = this.dataset.nav;
+                    if (page && document.getElementById('page-' + page)) {
+                        e.preventDefault();
+                        switchPage(page);
+                    }
+                });
+            });
+            langButtons.forEach(b => b.addEventListener('click', () => switchLang(b.dataset.lang)));
+            if (trialBtn) trialBtn.addEventListener('click', () => alert('La descarga de prueba iniciaría aquí. Versión con límite de tiempo.'));
+
+            function init() {
+                let pref = localStorage.getItem('ec_pref_lang');
+                if (!pref || !['es','en','zh'].includes(pref)) {
+                    pref = navigator.language?.startsWith('zh') ? 'zh' : (navigator.language?.startsWith('en') ? 'en' : 'es');
+                }
+                switchLang(pref);
+                switchPage('home');
+                buildProjectGrid(pref);
+            }
+            document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+        })();
+    </script>
+</body>
+</html>
