@@ -256,6 +256,57 @@
             display: none;
         }
 
+        /* ── Mobile Bottom Navigation Bar ── */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4rem;
+            background: oklch(0.985 0.005 240 / 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--line);
+            z-index: 100;
+            padding: 0 1rem;
+        }
+        .bottom-nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--graphite);
+            gap: 0.25rem;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+        .bottom-nav a.active {
+            color: var(--ink);
+        }
+        .bottom-nav a svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+        }
+        .bottom-nav a span {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
         /* ── Main & pages ── */
         main {
             flex: 1;
@@ -592,9 +643,14 @@
             header {
                 padding: 0 1rem;
             }
-            .nav-links a {
-                padding: 0.3rem 0.5rem;
-                font-size: 0.7rem;
+            .nav-links {
+                display: none;
+            }
+            .bottom-nav {
+                display: block;
+            }
+            body {
+                padding-bottom: 4rem;
             }
             .hero h1 {
                 font-size: 2.5rem;
@@ -633,6 +689,28 @@
             </div>
         </div>
     </header>
+
+    <!-- ═══════════════ MOBILE BOTTOM NAVIGATION ═══════════════ -->
+    <nav class="bottom-nav" id="bottomNav">
+        <div class="bottom-nav-inner">
+            <a href="#" data-nav="home" class="active">
+                <svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="11" stroke="currentColor" fill="none" stroke-width="1.5"/><polyline points="3,10 12,3 21,10" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                <span data-i18n="navHome">INICIO</span>
+            </a>
+            <a href="#" data-nav="structural">
+                <svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="13" stroke="currentColor" fill="none" stroke-width="1.5"/><polyline points="4,13 12,3 20,13" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                <span data-i18n="navStructural">ESTRUCTURAL</span>
+            </a>
+            <a href="#" data-nav="pdfapp">
+                <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M9 7h6M9 11h6M9 15h4" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span data-i18n="navPdfApp">FIRMA PDF</span>
+            </a>
+            <a href="#" data-nav="contact">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" fill="none" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="18" y1="18" x2="21" y2="21" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span data-i18n="navContact">CONTACTO</span>
+            </a>
+        </div>
+    </nav>
 
     <!-- ═══════════════ MAIN ═══════════════ -->
     <main>
@@ -1008,7 +1086,10 @@
                 currentPage = pageName;
                 pages.forEach(p => p.classList.remove('active-page'));
                 document.getElementById('page-' + pageName)?.classList.add('active-page');
-                navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('data-nav') === pageName));
+                // Update active state for both top nav and bottom nav
+                document.querySelectorAll('nav a[data-nav]').forEach(a => {
+                    a.classList.toggle('active', a.getAttribute('data-nav') === pageName);
+                });
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
@@ -1073,9 +1154,12 @@
             if (trialBtn) trialBtn.addEventListener('click', () => alert('La descarga de prueba iniciaría aquí. Versión con límite de tiempo.'));
 
             function init() {
-                let pref = localStorage.getItem('ec_pref_lang');
-                if (!pref || !['es','en','zh'].includes(pref)) {
-                    pref = navigator.language?.startsWith('zh') ? 'zh' : (navigator.language?.startsWith('en') ? 'en' : 'es');
+                // Always default to Spanish (es) as the site's default language
+                let pref = 'es';
+                // Check if user has a saved preference, use it if valid
+                const savedPref = localStorage.getItem('ec_pref_lang');
+                if (savedPref && ['es','en','zh'].includes(savedPref)) {
+                    pref = savedPref;
                 }
                 switchLang(pref);
                 switchPage('home');
