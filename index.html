@@ -590,14 +590,38 @@
         }
         .contact-item {
             background: var(--background);
-            padding: 2rem 1.5rem;
-            text-align: center;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
             text-decoration: none;
             color: inherit;
             transition: box-shadow 0.2s;
         }
         .contact-item:hover {
             box-shadow: 0 20px 60px -30px var(--blueprint-deep);
+        }
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+        .contact-body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+        .contact-body .mono-label {
+            text-align: left;
+        }
+        .contact-body p {
+            margin: 0;
+        }
+        .contact-desc {
+            font-size: 0.8rem;
+            color: var(--graphite);
+            display: block;
         }
         .wechat-hidden {
             display: none;
@@ -982,12 +1006,20 @@
             </div>
             <div class="contact-grid">
                 <a href="https://wa.me/593999999999" target="_blank" rel="noopener" class="contact-item">
-                    <span class="mono-label">WhatsApp</span>
-                    <p style="margin-top:0.5rem;">+593 99 999 9999</p>
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    <div class="contact-body">
+                        <span class="mono-label">WhatsApp</span>
+                        <p>+593 99 999 9999</p>
+                        <span class="contact-desc" data-i18n="contactWhatsAppStructural">Consultas de ingeniería estructural</span>
+                    </div>
                 </a>
-                <a href="mailto:contacto@estructurascuenca.com" class="contact-item">
-                    <span class="mono-label">Email</span>
-                    <p style="margin-top:0.5rem;">contacto@estructurascuenca.com</p>
+                <a href="https://wa.me/593999999999" target="_blank" rel="noopener" class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    <div class="contact-body">
+                        <span class="mono-label">WhatsApp</span>
+                        <p>+593 99 999 9999</p>
+                        <span class="contact-desc" data-i18n="contactWhatsAppMarka">Adquisición de licencia #marka</span>
+                    </div>
                 </a>
                 <div class="contact-item wechat-hidden" id="contactWeChat">
                     <span class="mono-label">WeChat</span>
@@ -1059,6 +1091,8 @@
                     pdfFuture: "PRÓXIMO: LICENCIA EN LÍNEA",
                     contactTitle: "Contacto",
                     contactTitleItalic: "directo",
+                    contactWhatsAppStructural: "Consultas de ingeniería estructural",
+                    contactWhatsAppMarka: "Adquisición de licencia #marka",
                     reminder1Title: "Ingeniería Estructural",
                     reminder1Desc: "Análisis y diseño para todo tipo de proyectos de construcción.",
                     reminder2Title: "#marka — Firma PDF",
@@ -1082,11 +1116,11 @@
                     companyName: "Estructuras Cuenca",
                     navHome: "01 HOME",
                     navStructural: "02 STRUCTURAL",
-                    navPdfApp: "03 PDF APP",
+                    navPdfApp: "03 FIRMA PDF",
                     navContact: "04 CONTACT",
-                    homeTitlePart1: "Structural",
-                    homeTitleItalic: "engineering",
-                    homeTitlePart2: "in Cuenca, Ecuador",
+                    homeTitlePart1: "Ingeniería",
+                    homeTitleItalic: "estructural",
+                    homeTitlePart2: "en Cuenca, Ecuador",
                     homeLede: "Every project starts different. We study your site, plans, and constraints to determine the right structural approach.",
                     pathEngTitle: "Structural Engineering",
                     pathEngDesc: "Analysis and design for residential, commercial, and industrial projects.",
@@ -1124,6 +1158,8 @@
                     pdfFuture: "COMING: ONLINE LICENSE",
                     contactTitle: "Contact",
                     contactTitleItalic: "direct",
+                    contactWhatsAppStructural: "Structural engineering inquiries",
+                    contactWhatsAppMarka: "#marka license purchase",
                     reminder1Title: "Structural Engineering",
                     reminder1Desc: "Analysis and design for all types of construction projects.",
                     reminder2Title: "#marka — PDF Signing",
@@ -1147,7 +1183,7 @@
                     companyName: "Estructuras Cuenca",
                     navHome: "01 首页",
                     navStructural: "02 结构",
-                    navPdfApp: "03 PDF应用",
+                    navPdfApp: "03 FIRMA PDF",
                     navContact: "04 联系",
                     homeTitlePart1: "结构",
                     homeTitleItalic: "工程",
@@ -1189,6 +1225,8 @@
                     pdfFuture: "即将推出：在线许可证",
                     contactTitle: "联系",
                     contactTitleItalic: "直接",
+                    contactWhatsAppStructural: "结构工程咨询",
+                    contactWhatsAppMarka: "#marka许可证购买",
                     reminder1Title: "结构工程",
                     reminder1Desc: "各类建筑项目的分析与设计。",
                     reminder2Title: "#marka — PDF签名",
