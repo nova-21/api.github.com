@@ -80,19 +80,25 @@
                 linear-gradient(90deg, color-mix(in oklch, var(--blueprint) 8%, transparent) 1px, transparent 1px);
             background-size: 32px 32px;
         }
-        /* Original fine grid (for reference, still usable elsewhere) */
         .grid-paper-fine {
             background-image:
                 linear-gradient(color-mix(in oklch, var(--blueprint) 5%, transparent) 0.5px, transparent 0.5px),
                 linear-gradient(90deg, color-mix(in oklch, var(--blueprint) 5%, transparent) 0.5px, transparent 0.5px);
             background-size: 16px 16px;
         }
-        /* Darker fine grid for hero sections (30% darker) */
         .grid-paper-fine-dark {
             background-image:
                 linear-gradient(color-mix(in oklch, var(--blueprint-grid-dark) 8%, transparent) 0.5px, transparent 0.5px),
                 linear-gradient(90deg, color-mix(in oklch, var(--blueprint-grid-dark) 8%, transparent) 0.5px, transparent 0.5px);
             background-size: 16px 16px;
+        }
+        .grid-paper-fine-accent {
+            background-image:
+                linear-gradient(color-mix(in oklch, var(--blueprint) 4%, transparent) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, color-mix(in oklch, var(--blueprint) 4%, transparent) 0.5px, transparent 0.5px),
+                linear-gradient(color-mix(in oklch, var(--blueprint) 12%, transparent) 1px, transparent 1px),
+                linear-gradient(90deg, color-mix(in oklch, var(--blueprint) 12%, transparent) 1px, transparent 1px);
+            background-size: 8px 8px, 8px 8px, 32px 32px, 32px 32px;
         }
         .tick-rule {
             background: repeating-linear-gradient(to right, var(--rule) 0, var(--rule) 1px, transparent 1px, transparent 8px);
@@ -124,8 +130,21 @@
         .btn-primary:hover {
             background: var(--blueprint-deep);
             border-color: var(--blueprint-deep);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
             box-shadow: 0 20px 60px -30px var(--blueprint-deep);
+        }
+        .btn-primary:hover::before {
+            content: '\2192';
+            position: absolute;
+            right: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .btn-primary:hover {
+            padding-right: 2.5rem;
+        }
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
         }
         .btn-outline {
             background: transparent;
@@ -219,7 +238,7 @@
             height: 1.5px;
             background: var(--blueprint);
             transform: scaleX(0);
-            transition: transform 0.25s ease;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .nav-links a:hover,
         .nav-links a.active {
@@ -227,6 +246,10 @@
         }
         .nav-links a.active::after {
             transform: scaleX(1);
+        }
+        .nav-links a:hover::after {
+            transform: scaleX(0.5);
+            transform-origin: left;
         }
         .lang-switcher {
             display: flex;
@@ -271,19 +294,36 @@
             min-width: 0;
             background: var(--paper);
             border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        .feature-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--blueprint), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+        .feature-image:hover::before {
+            opacity: 1;
         }
         .feature-image img {
             width: 100%;
             height: auto;
             display: block;
             border-radius: 6px;
-            border: 1px solid var(--line);
-            box-shadow: 0 8px 32px -12px rgba(0,0,0,0.12);
-            transition: box-shadow 0.3s ease, filter 0.3s ease;
+            border: none;
+            box-shadow: 0 8px 32px -12px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
         .feature-image:hover img {
-            box-shadow: 0 16px 48px -20px rgba(0,0,0,0.2);
-            filter: brightness(1.03);
+            box-shadow: 0 16px 48px -20px rgba(0,0,0,0.18);
+            transform: scale(1.01);
         }
         .feature-content {
             flex: 1;
@@ -383,7 +423,7 @@
         }
         .page {
             display: none;
-            animation: fadeSlide 0.35s ease;
+            animation: pageEnter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             position: relative;
             overflow: hidden;
         }
@@ -406,6 +446,33 @@
                 transform: translateY(0);
             }
         }
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .card {
+            opacity: 0;
+            animation: cardReveal 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes cardReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.25s; }
+        .card-grid .card:nth-child(1) { animation-delay: 0.15s; }
+        .card-grid .card:nth-child(2) { animation-delay: 0.3s; }
+        .card-grid .card:nth-child(3) { animation-delay: 0.45s; }
 
         /* ── Hero section (common) ── */
         .hero {
@@ -423,6 +490,31 @@
             position: relative;
             z-index: 1;
         }
+        .hero .hero-bg-number {
+            position: absolute;
+            top: -0.5rem;
+            right: -1rem;
+            font-family: var(--font-mono);
+            font-size: clamp(8rem, 20vw, 16rem);
+            font-weight: 500;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--blueprint-glow);
+            opacity: 0.15;
+            pointer-events: none;
+            user-select: none;
+            line-height: 1;
+            z-index: 0;
+        }
+        .hero .corner-tick {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+        .hero .corner-tick.tl { top: 2rem; left: 2rem; }
+        .hero .corner-tick.tr { top: 2rem; right: 2rem; transform: scaleX(-1); }
+        .hero .corner-tick.bl { bottom: 1rem; left: 2rem; transform: scaleY(-1); }
         .hero h1 {
             font-family: var(--font-display);
             font-size: clamp(3rem, 8vw, 5.5rem);
@@ -478,6 +570,15 @@
             text-transform: uppercase;
             color: var(--muted-foreground);
             padding-top: 0.4rem;
+            position: relative;
+        }
+        .split .rail::before {
+            content: '';
+            display: block;
+            width: 16px;
+            height: 1px;
+            background: var(--blueprint);
+            margin-bottom: 0.5rem;
         }
         .split .content h2 {
             font-family: var(--font-display);
@@ -507,13 +608,15 @@
             background: var(--background);
             padding: 2rem 1.5rem;
             position: relative;
-            transition: box-shadow 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
         .card:hover {
-            box-shadow: 0 20px 60px -30px var(--blueprint-deep);
+            box-shadow: 0 24px 64px -28px var(--blueprint-deep), 0 0 0 1px var(--blueprint-glow);
         }
         .card .mono-code {
             position: absolute;
@@ -553,6 +656,11 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
             margin-top: auto;
+            transition: letter-spacing 0.25s, color 0.2s;
+        }
+        .card:hover .arrow {
+            letter-spacing: 0.18em;
+            color: var(--blueprint-deep);
         }
 
         /* ── Project grid (structural) ── */
@@ -563,7 +671,29 @@
             padding: 4rem 2rem;
             margin: 3rem 0;
             position: relative;
+            overflow: hidden;
         }
+        .ink-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+        .ink-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(color-mix(in oklch, var(--cyan) 4%, transparent) 0.5px, transparent 0.5px),
+                linear-gradient(90deg, color-mix(in oklch, var(--cyan) 4%, transparent) 0.5px, transparent 0.5px);
+            background-size: 48px 48px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .ink-section > * { position: relative; z-index: 1; }
         .ink-section .mono-label {
             color: var(--cyan);
         }
@@ -583,6 +713,16 @@
             color: rgba(255, 255, 255, 0.7);
             max-width: 500px;
         }
+        .ink-section .corner-marker {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            opacity: 0.2;
+        }
+        .ink-section .corner-marker.tl { top: 1.5rem; left: 1.5rem; }
+        .ink-section .corner-marker.tr { top: 1.5rem; right: 1.5rem; transform: rotate(90deg); }
+        .ink-section .corner-marker.bl { bottom: 1.5rem; left: 1.5rem; transform: rotate(-90deg); }
+        .ink-section .corner-marker.br { bottom: 1.5rem; right: 1.5rem; transform: rotate(180deg); }
 
         /* ── CTA band (still uses .grid-paper for the 32px grid) ── */
         .cta-band {
@@ -790,8 +930,12 @@
         <!-- HOME PAGE -->
         <section class="page active-page" id="page-home">
             <div class="hero">
-                <!-- Using the darker grid class -->
                 <div class="grid-bg grid-paper-fine-dark"></div>
+                <!-- Corner tick marks -->
+                <svg class="corner-tick tl" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <svg class="corner-tick tr" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <!-- Oversized decorative section number -->
+                <span class="hero-bg-number" aria-hidden="true">01</span>
                 <div class="hero-content">
                     <div class="mono-label" style="margin-bottom:0.5rem;">01 / INICIO</div>
                     <h1><span data-i18n="homeTitlePart1">Ingeniería</span> <i data-i18n="homeTitleItalic">estructural</i> <span data-i18n="homeTitlePart2">en Cuenca, Ecuador</span></h1>
@@ -823,6 +967,10 @@
 
             <!-- Inverted manifesto -->
             <div class="ink-section">
+                <svg class="corner-marker tl" viewBox="0 0 40 40" fill="none"><path d="M0 12 L0 0 L12 0" stroke="var(--cyan)" stroke-width="1.5"/></svg>
+                <svg class="corner-marker tr" viewBox="0 0 40 40" fill="none"><path d="M0 12 L0 0 L12 0" stroke="var(--cyan)" stroke-width="1.5"/></svg>
+                <svg class="corner-marker bl" viewBox="0 0 40 40" fill="none"><path d="M0 12 L0 0 L12 0" stroke="var(--cyan)" stroke-width="1.5"/></svg>
+                <svg class="corner-marker br" viewBox="0 0 40 40" fill="none"><path d="M0 12 L0 0 L12 0" stroke="var(--cyan)" stroke-width="1.5"/></svg>
                 <span class="mono-label">— MANIFIESTO</span>
                 <h2><em data-i18n="manifestoLine">Trabajamos</em> con precisión, <br><span style="color:rgba(255,255,255,0.7);">no con adornos.</span></h2>
                 <p data-i18n="manifestoDesc">Somos un equipo. Cada cálculo, cada plano, cada firma tiene un propósito estructural. Sin marketing, sin atajos.</p>
@@ -842,6 +990,9 @@
         <section class="page" id="page-structural">
             <div class="grid-bg grid-paper-fine-dark"></div>
             <div class="hero">
+                <svg class="corner-tick tl" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <svg class="corner-tick tr" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <span class="hero-bg-number" aria-hidden="true">02</span>
                 <div class="hero-content">
                     <div class="mono-label">02 / ESTRUCTURAL</div>
                     <h1><span data-i18n="structuralTitlePart1">Análisis</span> <i data-i18n="structuralTitleItalic">estructural</i></h1>
@@ -921,6 +1072,9 @@
         <section class="page" id="page-pdfapp">
             <div class="grid-bg grid-paper-fine-dark"></div>
             <div class="hero">
+                <svg class="corner-tick tl" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <svg class="corner-tick tr" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <span class="hero-bg-number" aria-hidden="true">03</span>
                 <div class="hero-content">
                     <div class="mono-label">03 / #marka</div>
                     <h1><span data-i18n="pdfTitlePart1">#marka</span> <i data-i18n="pdfTitleItalic">Firma digital</i> <span data-i18n="pdfTitlePart2">para planos</span></h1>
@@ -998,6 +1152,9 @@
         <section class="page" id="page-contact">
             <div class="hero">
                 <div class="grid-bg grid-paper-fine-dark"></div>
+                <svg class="corner-tick tl" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <svg class="corner-tick tr" viewBox="0 0 24 24" fill="none"><path d="M0 8 L0 0 L8 0" stroke="var(--blueprint)" stroke-width="1.5"/></svg>
+                <span class="hero-bg-number" aria-hidden="true">04</span>
                 <div class="hero-content">
                     <div class="mono-label">04 / CONTACTO</div>
                     <h1><span data-i18n="contactTitle">Contacto</span> <i data-i18n="contactTitleItalic">directo</i></h1>
