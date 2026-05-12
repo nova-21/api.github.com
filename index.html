@@ -531,6 +531,10 @@
             fill: none;
             stroke-width: 1.2;
         }
+        .card .icon-fill path {
+            fill: var(--blueprint-deep);
+            stroke: none;
+        }
         .card h3 {
             font-family: var(--font-display);
             font-size: 1.4rem;
@@ -763,19 +767,19 @@
     <nav class="bottom-nav" id="bottomNav">
         <div class="bottom-nav-inner">
             <a href="#" data-nav="home" class="active">
-                <svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="11" stroke="currentColor" fill="none" stroke-width="1.5"/><polyline points="3,10 12,3 21,10" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                <img src="images/icons/home-outline.svg" width="24" height="24" alt="">
                 <span data-i18n="navHome">INICIO</span>
             </a>
             <a href="#" data-nav="structural">
-                <svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="13" stroke="currentColor" fill="none" stroke-width="1.5"/><polyline points="4,13 12,3 20,13" stroke="currentColor" fill="none" stroke-width="1.5"/></svg>
+                <img src="images/icons/beam.svg" width="24" height="24" style="object-fit:contain;" alt="">
                 <span data-i18n="navStructural">ESTRUCTURAL</span>
             </a>
             <a href="#" data-nav="pdfapp">
-                <svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M9 7h6M9 11h6M9 15h4" stroke="currentColor" stroke-width="1.5"/></svg>
+                <svg viewBox="0 0 24 24" style="fill:currentColor; stroke:none;"><g transform="translate(1.2, 1.2) scale(0.9)"><path d="M23 4C23 2.34315 21.6569 1 20 1H16C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 21.4477 9 22 9C22.5523 9 23 8.55228 23 8V4Z"/><path d="M23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H16C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23H20C21.6569 23 23 21.6569 23 20V16Z"/><path d="M4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16V20C1 21.6569 2.34315 23 4 23H8C8.55228 23 9 22.5523 9 22C9 21.4477 8.55228 21 8 21H4Z"/><path d="M1 8C1 8.55228 1.44772 9 2 9C2.55228 9 3 8.55228 3 8V4C3 3.44772 3.44772 3 4 3H8C8.55228 3 9 2.55228 9 2C9 1.44772 8.55228 1 8 1H4C2.34315 1 1 2.34315 1 4V8Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C11 5.44772 10.5523 5 10 5H6C5.44772 5 5 5.44772 5 6V10C5 10.5523 5.44772 11 6 11H10C10.5523 11 11 10.5523 11 10V6ZM9 7.5C9 7.22386 8.77614 7 8.5 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H8.5C8.77614 9 9 8.77614 9 8.5V7.5Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M18 13C18.5523 13 19 13.4477 19 14V18C19 18.5523 18.5523 19 18 19H14C13.4477 19 13 18.5523 13 18V14C13 13.4477 13.4477 13 14 13H18ZM15 15.5C15 15.2239 15.2239 15 15.5 15H16.5C16.7761 15 17 15.2239 17 15.5V16.5C17 16.7761 16.7761 17 16.5 17H15.5C15.2239 17 15 16.7761 15 16.5V15.5Z"/><path d="M14 5C13.4477 5 13 5.44772 13 6C13 6.55229 13.4477 7 14 7H16.5C16.7761 7 17 7.22386 17 7.5V10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10V6C19 5.44772 18.5523 5 18 5H14Z"/><path d="M14 8C13.4477 8 13 8.44771 13 9V10C13 10.5523 13.4477 11 14 11C14.5523 11 15 10.5523 15 10V9C15 8.44772 14.5523 8 14 8Z"/><path d="M6 13C5.44772 13 5 13.4477 5 14V16C5 16.5523 5.44772 17 6 17C6.55229 17 7 16.5523 7 16V15.5C7 15.2239 7.22386 15 7.5 15H10C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13H6Z"/><path d="M10 17C9.44771 17 9 17.4477 9 18C9 18.5523 9.44771 19 10 19C10.5523 19 11 18.5523 11 18C11 17.4477 10.5523 17 10 17Z"/></g></svg>
                 <span data-i18n="navPdfApp">FIRMA PDF</span>
             </a>
             <a href="#" data-nav="contact">
-                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" fill="none" stroke-width="1.5"/><circle cx="12" cy="12" r="3" stroke="currentColor" fill="none" stroke-width="1.5"/><line x1="18" y1="18" x2="21" y2="21" stroke="currentColor" stroke-width="1.5"/></svg>
+                <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" fill="none" stroke-width="1.5"/><path d="M22 7l-10 7L2 7" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <span data-i18n="navContact">CONTACTO</span>
             </a>
         </div>
@@ -804,15 +808,14 @@
             <div class="card-grid">
                 <a href="#" class="card" data-nav="structural">
                     <span class="mono-code">T·01</span>
-                    <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" stroke="currentColor" fill="none"/><polyline points="6,18 24,4 42,18" stroke="currentColor" fill="none"/><line x1="24" y1="28" x2="24" y2="42" stroke="currentColor"/></svg>
+                    <img src="images/icons/beam.svg" width="68" height="56" style="object-fit:contain;" alt="">
                     <h3 data-i18n="pathEngTitle">Ingeniería Estructural</h3>
                     <p data-i18n="pathEngDesc">Análisis y diseño para proyectos residenciales, comerciales e industriales.</p>
                     <span class="arrow">Entrar →</span>
                 </a>
                 <a href="#" class="card" data-nav="pdfapp">
                     <span class="mono-code">D·02</span>
-                    <svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="38" rx="2" stroke="currentColor" fill="none"/><line x1="16" y1="18" x2="32" y2="18" stroke="currentColor"/><line x1="16" y1="26" x2="28" y2="26" stroke="currentColor"/><circle cx="33" cy="32" r="5" stroke="currentColor" fill="none"/><path d="M31 30 L33 32 L36 29" stroke="currentColor"/></svg>
-                    <h3 data-i18n="pathPdfTitle">#marka — Firma PDF</h3>
+                    <svg class="icon-fill" viewBox="0 0 24 24"><g transform="translate(1.2, 1.2) scale(0.9)"><path d="M23 4C23 2.34315 21.6569 1 20 1H16C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 21.4477 9 22 9C22.5523 9 23 8.55228 23 8V4Z" fill="currentColor"/><path d="M23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H16C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23H20C21.6569 23 23 21.6569 23 20V16Z" fill="currentColor"/><path d="M4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16V20C1 21.6569 2.34315 23 4 23H8C8.55228 23 9 22.5523 9 22C9 21.4477 8.55228 21 8 21H4Z" fill="currentColor"/><path d="M1 8C1 8.55228 1.44772 9 2 9C2.55228 9 3 8.55228 3 8V4C3 3.44772 3.44772 3 4 3H8C8.55228 3 9 2.55228 9 2C9 1.44772 8.55228 1 8 1H4C2.34315 1 1 2.34315 1 4V8Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C11 5.44772 10.5523 5 10 5H6C5.44772 5 5 5.44772 5 6V10C5 10.5523 5.44772 11 6 11H10C10.5523 11 11 10.5523 11 10V6ZM9 7.5C9 7.22386 8.77614 7 8.5 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H8.5C8.77614 9 9 8.77614 9 8.5V7.5Z" fill="currentColor"/><path d="M18 13C18.5523 13 19 13.4477 19 14V18C19 18.5523 18.5523 19 18 19H14C13.4477 19 13 18.5523 13 18V14C13 13.4477 13.4477 13 14 13H18ZM15 15.5C15 15.2239 15.2239 15 15.5 15H16.5C16.7761 15 17 15.2239 17 15.5V16.5C17 16.7761 16.7761 17 16.5 17H15.5C15.2239 17 15 16.7761 15 16.5V15.5Z" fill="currentColor"/><path d="M14 5C13.4477 5 13 5.44772 13 6C13 6.55229 13.4477 7 14 7H16.5C16.7761 7 17 7.22386 17 7.5V10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10V6C19 5.44772 18.5523 5 18 5H14Z" fill="currentColor"/><path d="M14 8C13.4477 8 13 8.44771 13 9V10C13 10.5523 13.4477 11 14 11C14.5523 11 15 10.5523 15 10V9C15 8.44772 14.5523 8 14 8Z" fill="currentColor"/><path d="M6 13C5.44772 13 5 13.4477 5 14V16C5 16.5523 5.44772 17 6 17C6.55229 17 7 16.5523 7 16V15.5C7 15.2239 7.22386 15 7.5 15H10C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13H6Z" fill="currentColor"/><path d="M10 17C9.44771 17 9 17.4477 9 18C9 18.5523 9.44771 19 10 19C10.5523 19 11 18.5523 11 18C11 17.4477 10.5523 17 10 17Z" fill="currentColor"/></g></svg>  <h3 data-i18n="pathPdfTitle">#marka — Firma PDF</h3>
                     <p data-i18n="pathPdfDesc">Alternativa a FirmaEC. Optimizada para planos A1/A0. Firme todas las páginas a la vez.</p>
                     <span class="arrow">Entrar →</span>
                 </a>
@@ -1003,19 +1006,19 @@
             <div class="card-grid">
                 <div class="card">
                     <span class="mono-code">S·01</span>
-                    <svg viewBox="0 0 48 48"><rect x="6" y="10" width="36" height="32" stroke="currentColor" fill="none"/><polyline points="6,18 24,4 42,18" stroke="currentColor" fill="none"/></svg>
+                    <img src="images/icons/beam.svg" width="68" height="56" style="object-fit:contain;" alt="">
                     <h4 data-i18n="reminder1Title">Ingeniería Estructural</h4>
                     <p data-i18n="reminder1Desc">Análisis y diseño para todo tipo de proyectos de construcción.</p>
                 </div>
                 <div class="card">
                     <span class="mono-code">S·02</span>
-                    <svg viewBox="0 0 48 48"><rect x="8" y="6" width="32" height="38" rx="2" stroke="currentColor" fill="none"/><circle cx="24" cy="24" r="8" stroke="currentColor" fill="none"/></svg>
+                    <svg class="icon-fill" viewBox="0 0 24 24"><g transform="translate(1.2, 1.2) scale(0.9)"><path d="M23 4C23 2.34315 21.6569 1 20 1H16C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 21.4477 9 22 9C22.5523 9 23 8.55228 23 8V4Z" fill="currentColor"/><path d="M23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16V20C21 20.5523 20.5523 21 20 21H16C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23H20C21.6569 23 23 21.6569 23 20V16Z" fill="currentColor"/><path d="M4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 2.55228 15 2 15C1.44772 15 1 15.4477 1 16V20C1 21.6569 2.34315 23 4 23H8C8.55228 23 9 22.5523 9 22C9 21.4477 8.55228 21 8 21H4Z" fill="currentColor"/><path d="M1 8C1 8.55228 1.44772 9 2 9C2.55228 9 3 8.55228 3 8V4C3 3.44772 3.44772 3 4 3H8C8.55228 3 9 2.55228 9 2C9 1.44772 8.55228 1 8 1H4C2.34315 1 1 2.34315 1 4V8Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11 6C11 5.44772 10.5523 5 10 5H6C5.44772 5 5 5.44772 5 6V10C5 10.5523 5.44772 11 6 11H10C10.5523 11 11 10.5523 11 10V6ZM9 7.5C9 7.22386 8.77614 7 8.5 7H7.5C7.22386 7 7 7.22386 7 7.5V8.5C7 8.77614 7.22386 9 7.5 9H8.5C8.77614 9 9 8.77614 9 8.5V7.5Z" fill="currentColor"/><path d="M18 13C18.5523 13 19 13.4477 19 14V18C19 18.5523 18.5523 19 18 19H14C13.4477 19 13 18.5523 13 18V14C13 13.4477 13.4477 13 14 13H18ZM15 15.5C15 15.2239 15.2239 15 15.5 15H16.5C16.7761 15 17 15.2239 17 15.5V16.5C17 16.7761 16.7761 17 16.5 17H15.5C15.2239 17 15 16.7761 15 16.5V15.5Z" fill="currentColor"/><path d="M14 5C13.4477 5 13 5.44772 13 6C13 6.55229 13.4477 7 14 7H16.5C16.7761 7 17 7.22386 17 7.5V10C17 10.5523 17.4477 11 18 11C18.5523 11 19 10.5523 19 10V6C19 5.44772 18.5523 5 18 5H14Z" fill="currentColor"/><path d="M14 8C13.4477 8 13 8.44771 13 9V10C13 10.5523 13.4477 11 14 11C14.5523 11 15 10.5523 15 10V9C15 8.44772 14.5523 8 14 8Z" fill="currentColor"/><path d="M6 13C5.44772 13 5 13.4477 5 14V16C5 16.5523 5.44772 17 6 17C6.55229 17 7 16.5523 7 16V15.5C7 15.2239 7.22386 15 7.5 15H10C10.5523 15 11 14.5523 11 14C11 13.4477 10.5523 13 10 13H6Z" fill="currentColor"/><path d="M10 17C9.44771 17 9 17.4477 9 18C9 18.5523 9.44771 19 10 19C10.5523 19 11 18.5523 11 18C11 17.4477 10.5523 17 10 17Z" fill="currentColor"/></svg>
                     <h4 data-i18n="reminder2Title">#marka — Firma PDF</h4>
                     <p data-i18n="reminder2Desc">Firma digital para planos A1/A0. Rápida y eficiente.</p>
                 </div>
                 <div class="card">
                     <span class="mono-code">S·03</span>
-                    <svg viewBox="0 0 48 48"><circle cx="24" cy="20" r="16" stroke="currentColor" fill="none"/><line x1="24" y1="4" x2="24" y2="36" stroke="currentColor"/><circle cx="24" cy="20" r="4" fill="currentColor"/></svg>
+                    <svg viewBox="0 0 48 48"><path d="M24 4c-6 0-11 5-11 11 0 8 11 21 11 21s11-13 11-21c0-6-5-11-11-11z" stroke="currentColor" fill="none"/><circle cx="24" cy="15" r="4" stroke="currentColor" fill="none"/></svg>
                     <h4 data-i18n="reminder3Title">Base en Cuenca</h4>
                     <p data-i18n="reminder3Desc">Atendemos proyectos en toda la región. Visitas a sitio incluidas.</p>
                 </div>
