@@ -384,9 +384,17 @@
         .page {
             display: none;
             animation: fadeSlide 0.35s ease;
+            position: relative;
+            overflow: hidden;
         }
         .page.active-page {
             display: block;
+        }
+        .page > .grid-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.6;
+            pointer-events: none;
         }
         @keyframes fadeSlide {
             from {
@@ -829,8 +837,8 @@
 
         <!-- STRUCTURAL ENGINEERING PAGE -->
         <section class="page" id="page-structural">
+            <div class="grid-bg grid-paper-fine-dark"></div>
             <div class="hero">
-                <div class="grid-bg grid-paper-fine-dark"></div>
                 <div class="hero-content">
                     <div class="mono-label">02 / ESTRUCTURAL</div>
                     <h1><span data-i18n="structuralTitlePart1">Análisis</span> <i data-i18n="structuralTitleItalic">estructural</i></h1>
@@ -908,8 +916,8 @@
 
         <!-- PDF SIGNING APP PAGE -->
         <section class="page" id="page-pdfapp">
+            <div class="grid-bg grid-paper-fine-dark"></div>
             <div class="hero">
-                <div class="grid-bg grid-paper-fine-dark"></div>
                 <div class="hero-content">
                     <div class="mono-label">03 / #marka</div>
                     <h1><span data-i18n="pdfTitlePart1">#marka</span> <i data-i18n="pdfTitleItalic">Firma digital</i> <span data-i18n="pdfTitlePart2">para planos</span></h1>
